@@ -1,8 +1,12 @@
 import Head from 'next/head';
 import styles from './Home.module.scss';
 import clsx from 'clsx';
+import axios from 'axios';
+import { Pic, Visual } from '@/components/atoms/pic/Pic';
+import Title from '@/components/atoms/text/Title';
 
-export default function Home() {
+//https://www.themealdb.com
+export default function Home({ meals }) {
 	return (
 		<>
 			<Head>
@@ -11,9 +15,35 @@ export default function Home() {
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
+
 			<main className={clsx(styles.main)}>
-				<h1>Main Page</h1>
+				<Title url={'/abc'} className={styles.txt} style={{ color: 'violet', hoverColor: 'aqua' }}>
+					Hello
+				</Title>
+				<div className={clsx(styles.box)}>
+					<Pic
+						imgSrc={meals[0].strMealThumb}
+						imgTxt={'Hello'}
+						priority={true}
+						className={styles.customPic}
+						url={'/sub'}
+					>
+						{/* 부모요소에서 직접 아톰 컴포넌트에 클래스명을 지정해서 스타일을 overwrite 하고 싶을때는 클래스를 등록한 후 프롭스를 전달. */}
+						<span>안녕</span>
+					</Pic>
+				</div>
 			</main>
 		</>
 	);
+}
+
+export async function getStaticProps() {
+	//props로 데이터 넘길때에는 data안쪽의 값까지 뽑아낸다음에 전달
+	const { data } = await axios.get('/filter.php?c=Seafood');
+	console.log('data fetching on Server', data);
+
+	return {
+		props: data,
+		revalidate: 60 * 60 * 24,
+	};
 }
