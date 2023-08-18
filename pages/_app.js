@@ -1,10 +1,15 @@
+import Layout from '@/components/template/Layout/Layout';
 import '@/styles/globals.scss';
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://www.themealdb.com/api/json/v1/1';
 
 export default function App({ Component, pageProps }) {
-	return <Component {...pageProps} />;
+	return (
+		<Layout>
+			<Component {...pageProps} />
+		</Layout>
+	);
 }
 
 /*
@@ -35,4 +40,12 @@ export default function App({ Component, pageProps }) {
   SSR: 서버쪽에서 데이터를 fetching후 페이지를 미리 만들어서 렌더링 (매번 컴포넌트 접속할때마다)
   SSG: 서버쪽에서 데이터를 fetching후 페이지를 미리 만들어서 렌더링 (프로젝트가 빌드될때 한번)
   ISR: 서버쪽에서 데이터를 fetching후 페이지를 미리 만들어서 렌더링 (일정시간을 직접 설정해서, 설정시간마다 다시 데이터 refetching 후 빌드)
+*/
+
+/*
+컴포넌트 렌더링 흐름
+1. _app.js 에서 공통의 layout 템플릿 컴포넌트를 가져와서 전체 컴포넌트를 감싼다.
+2. _app.js에 있는 component는 page 폴더 안쪽에 있는 각각의 page 컴포넌트를 의미
+3. 모든 페이지 컴포넌트에는 Layout 컴포넌트의 공통의 구조가 적용됨..
+4. 각각의 페이지 컴포넌트에서 페이지별로 들어갈 컨텐츠추가.
 */
