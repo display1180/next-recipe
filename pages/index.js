@@ -17,9 +17,16 @@ export default function Home({ meals }) {
 			</Head>
 
 			<main className={clsx(styles.main)}>
-				<Title url={'/abc'} className={styles.txt} style={{ color: 'violet', hoverColor: 'aqua' }}>
+				<Title
+					url={'/abc'}
+					className={styles.txt}
+					style={{ color: 'violet', hoverColor: 'aqua' }}
+					type={'slogan'}
+					tag={'h3'}
+				>
 					Hello
 				</Title>
+				{/* <Title type={'slogan'}>Slogan</Title> */}
 				<div className={clsx(styles.box)}>
 					<Pic
 						imgSrc={meals[0].strMealThumb}
